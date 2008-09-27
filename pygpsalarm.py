@@ -1,5 +1,6 @@
 # first version
 # not even sure if it works, but what the hell, we're gonna try it later
+# based on http://www.mobilenin.com/pys60/resources/bt_gps_reader.py
 
 
 import appuifw, socket, e32
