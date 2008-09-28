@@ -2,7 +2,7 @@
 # based on http://www.mobilenin.com/pys60/resources/bt_gps_reader.py
 
 
-import appuifw, socket, e32
+import appuifw, socket, e32, time
 
 target = ''
 # target = ('00:02:76:fd:c4:3a',1)    alternatively you can type here the Bluetooth address in HEX 
@@ -11,6 +11,7 @@ target = ''
 lat = u"NaN"
 lon = u"NaN"
 stopChecking = False			# Will be set to true to break the loop.
+bg = False
 
 def connectGPS():
  global sock, target
@@ -36,7 +37,7 @@ def connectGPS():
    sock.close()
 
 def placeholder():
- appuifw.note(u"nothing to see here yet", "info")
+ appuifw.note(u"nothing to see here yet, see docs", "info")
 
 def readData():
  global sock, position, lat, lon
@@ -76,16 +77,15 @@ def disconnectGPS():
  except:
   appuifw.note(u"Error. Maybe we haven't started yet? Only god knows.", "error")
 
-def stopPositionChecking():
- stopChecking = True
- #TODO: Not works. Got to figure out something that will work.
-
 def positionChecking():
  global position, stopChecking
- stopChecking = False
+ wasInBackground = False
  checkingMenu()
- while (stopChecking == False):
+ # If we put app to background, and then take it back to the foreground,
+ # checking will stop.
+ while ((wasInBackground == False) or (bg == True)): 
   e32.ao_sleep(1)
+  if bg == True: wasInBackground = True
   readData()
   print (u"Lat: " + lat + u"\nLon: " + lon)
  connectedMenu()
@@ -108,16 +108,22 @@ def connectedMenu():
                      
 def checkingMenu():
  # Menu that appears when we are checking our position.
- appuifw.app.menu = [(u"Disable position checking", stopPositionChecking),
+ appuifw.app.menu = [(u"Disable position checking", placeholder),
                      (u"Exit", exit_key_handler)]
                      
 ############# MENU ##################
 
+# Setting proper value to bg when app is in foreground or background.
+def inBackground(status):
+ global bg
+ if(status==0): bg = True
+ else: bg = False
+
 script_lock = e32.Ao_lock()
 
-print "Application initialized."
-
+appuifw.app.focus = inBackground
 appuifw.app.title = u"PyGPSAlarm"
 disconnectedMenu()
-#appuifw.app.exit_key_handler = exit_key_handler
+print "Application initialized."
+appuifw.app.exit_key_handler = exit_key_handler
 script_lock.wait()
