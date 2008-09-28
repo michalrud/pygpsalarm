@@ -10,6 +10,7 @@ target = ''
 #                                     of your GPS reader. Then the phone connects directly to the GPS reader without
 #                                     bringing up the BT device search dialog
 position = [u'NaN', u'NaN']		# 1 - lat, 2 - lon.
+stopChecking = False			# Will be set to true to break the loop.
 
 def connectGPS():
     global sock, target
@@ -35,7 +36,7 @@ def connectGPS():
             sock.close()
 
 def placeholder():
-    appuifw.note(u"nothing to see here yet", "info)
+    appuifw.note(u"nothing to see here yet", "info")
 
 def readData():
     global sock, position
@@ -66,11 +67,13 @@ def readData():
             pass
             
             
-def positionChecking();
+def positionChecking():
 	global position, stopChecking
+	#stopChecking = False
 	while (stopChecking != True):
-		e32.Ao_sleep(1)
+		e32.ao_sleep(1)
 		readData()
+		position
 
 def exit_key_handler():
     script_lock.signal()
@@ -86,8 +89,7 @@ appuifw.app.menu = [(u"Connect to device", connectGPS),
                     (u"Placeholder",
                         ((u"Placeholder 1", placeholder),
                          (u"Placeholder 2", placeholder))),
-                    (u"Exit", exit_key_handler]
+                    (u"Exit", exit_key_handler)]
 
-appuifw.app.menu = [(u"Check current location", connectGPS)]
-appuifw.app.exit_key_handler = exit_key_handler
+#appuifw.app.exit_key_handler = exit_key_handler
 script_lock.wait()
