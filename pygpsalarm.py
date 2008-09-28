@@ -1,4 +1,5 @@
-# PyGPSAlarm
+# PyGPSAlarm v0.0.2
+# http://github.com/michalrud/pygpsalarm/
 # based on http://www.mobilenin.com/pys60/resources/bt_gps_reader.py
 
 
