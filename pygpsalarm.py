@@ -9,7 +9,8 @@ target = ''
 # target = ('00:02:76:fd:c4:3a',1)    alternatively you can type here the Bluetooth address in HEX 
 #                                     of your GPS reader. Then the phone connects directly to the GPS reader without
 #                                     bringing up the BT device search dialog
-position = [u'NaN', u'NaN']		# 1 - lat, 2 - lon.
+lat = u"NaN"
+lon = u"NaN"
 stopChecking = False			# Will be set to true to break the loop.
 
 def connectGPS():
@@ -39,7 +40,7 @@ def placeholder():
     appuifw.note(u"nothing to see here yet", "info")
 
 def readData():
-    global sock, position
+    global sock, position, lat, lon
     packet_received = 0
     print "reading ..."
     while(packet_received == 0):
@@ -58,11 +59,13 @@ def readData():
                 pass
             else:
                 packet_received = 1
-                appuifw.note(u'Sucessful GPS location reading! ' + unicode(lat) + u' ' + unicode(lon), "info")
+                #let it be quiet
+                #appuifw.note(u'Sucessful GPS location reading! ' + unicode(lat) + u' ' + unicode(lon), "info")
                 position = [unicode(lat), unicode(lon)]
                 print "reading done!"
                 print "Press Options key!"
-                sock.close()
+                #We don't want it to close the connection..
+                #sock.close()
         else:
             pass
             
@@ -73,7 +76,7 @@ def positionChecking():
 	while (stopChecking != True):
 		e32.ao_sleep(1)
 		readData()
-		position
+		print (u"Lat: " + lat + u"\nLon: " + lon)
 
 def exit_key_handler():
     script_lock.signal()
