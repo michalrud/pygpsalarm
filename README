@@ -2,20 +2,4 @@ So, i hope this will grow up to be a simple alarm clock that will wake me up on 
 
 The idea comes from inap for iPhone, but this one won't cost anything ;) I saw this app on Gizmoto ant thought "hey, it could be done in Python!". So here we are, and I hope I won't abandon this project... Anyway, I find it useful by myself.
 
-So, to be official:
-
-    PyGPSAlarm, alarm clock that rely on GPS instead of time
-    Copyright (C) 2008 by Michał Rudowicz
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+I hope to release this app under GNU GPL v3 license, but I've used a lot of code created by Jurgen Scheible. Code is published on http://www.mobilenin.com/pys60/resources/bt_gps_reader.py. If I could get permission form him, I'd set the license to GPLv3.
