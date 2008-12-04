@@ -25,7 +25,12 @@ target = ''
 #                                     bringing up the BT device search dialog
 lat = u"NaN"
 lon = u"NaN"
-stopChecking = False			# Will be set to true to break the loop.
+# TODO: set these values
+dlat = u"NaN"							# Destination
+dlon = u"NaN"
+d = u"NaN"
+
+stopChecking = False					# Will be set to true to break the loop.
 bg = False
 
 def connectGPS():
@@ -103,7 +108,12 @@ def positionChecking():
   if bg == True: wasInBackground = True
   readData()
   print (u"Lat: " + lat + u"\nLon: " + lon)
+  if ((abs(lat - dlat) < d) and (abs(lon - dlon) < d)):
+   runAlarm()
  connectedMenu()
+
+def runAlarm():
+ appuifw.note(u"Alarm set off", "information")
 
 def exit_key_handler():
  script_lock.signal()
