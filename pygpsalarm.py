@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+#
 #    PyGPSAlarm, script that wakes you up according to your GPS location.
 #    Copyright (C) 2008 Michał Rudowicz
 #
@@ -26,9 +28,9 @@ target = ''
 lat = u"NaN"
 lon = u"NaN"
 # TODO: set these values
-dlat = u"NaN"							# Destination
-dlon = u"NaN"
-d = u"NaN"
+dlat = u"0"							# Destination
+dlon = u"0"
+d = u"0"          # How far from destination the alarm should start
 
 stopChecking = False					# Will be set to true to break the loop.
 bg = False
@@ -118,11 +120,20 @@ def runAlarm():
 def exit_key_handler():
  script_lock.signal()
  sock.close()
+	
+def optionsShow:
+	optionsDlg.optionsWindow()
+	disconnectedMenu()
+	optionsForm = appuifw.Form[(u"Destination lon:","number",dlon),
+	                           (u"Destination lat:","number",dlat),
+																												(u"Precision:","number",d)]
+	# TODO: finish this function!
  
 ############# MENU ##################
 def disconnectedMenu():
  # Menu that appears when we are disconnected.
  appuifw.app.menu = [(u"Connect to device", connectGPS),
+																					(u"Options", optionsShow),
                      (u"Exit", exit_key_handler)]
 
 def connectedMenu():
